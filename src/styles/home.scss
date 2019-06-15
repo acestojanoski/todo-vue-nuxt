@@ -1,0 +1,21 @@
+.todos {
+    margin-top: 5%;
+    text-align: center;
+}
+
+.todo {
+    padding: 20px;
+    width: 50%;
+    background-color: #e4e4e4;
+    margin: 2px auto;
+    list-style-type: none;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 20px;
+    text-align: left;
+}
+
+.delete-todo {
+    float: right;
+    color: red;
+    cursor: pointer;
+}
