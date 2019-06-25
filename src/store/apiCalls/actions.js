@@ -1,4 +1,4 @@
-import apiConfig from './api-config';
+import apiConfig from './apiConfig';
 import axios from './axios';
 
 export default {
@@ -42,7 +42,7 @@ export default {
         commit('API_CALL_STARTED', stateKey);
 
         return new Promise((resolve, reject) => {
-            return axios({
+            axios({
                 url: `${url}/${queryParameter}?${queryString}`,
                 method,
                 data: payload,

@@ -1,33 +1,49 @@
 <template>
-    <div class="todos">
-        <v-flex xs12 sm6 md3 style="margin: 0 auto">
-          <v-text-field
-            label="Insert todo..."
-            :value="newTodo"
-            v-on:keyup="todoChanged($event)"
-          ></v-text-field>
-        </v-flex>
-
-        <v-btn v-on:click="insertTodo()" color="blue" style="color: white">Insert</v-btn>
-
-        <v-progress-circular
-            indeterminate
-            color="blue"
-            v-if="todos.isLoading"
-            style="display: block; margin: 0 auto"
-        />
-
-        <ul>
-            <li
-                class="todo"
-                v-bind:key="todo._id"
-                v-for="todo in todos.data"
-            >
-                {{ todo.description }}
-                <span class="delete-todo" v-on:click="deleteTodo(todo._id)">Delete</span>
-            </li>
-        </ul>
-    </div>
+    <b-container>
+        <b-row>
+            <b-col cols="11">
+                <b-form-input
+                    placeholder="Insert todo..."
+                    :value="newTodo"
+                    v-on:keyup="todoChanged($event)"
+                ></b-form-input>
+            </b-col>
+            <b-col cols="1">
+                <b-button
+                    variant="primary"
+                    v-on:click="insertTodo()"
+                >
+                    Insert
+                </b-button>
+            </b-col>
+        </b-row>
+        <b-row>
+            <b-col style="margin: 20px 0; text-align: center;">
+                <b-spinner
+                    variant="primary"
+                    type="grow"
+                    label="Spinning"
+                    v-if="todos.isLoading"
+                />
+            </b-col>
+        </b-row>
+        <b-row>
+            <b-col>
+                <b-list-group>
+                    <b-list-group-item
+                        style="cursor: grab"
+                        href="#"
+                        variant="default"
+                        :key="todo._id"
+                        v-for="todo in todos.data"
+                    >
+                        {{ todo.description }}
+                        <span class="delete-todo" v-on:click="deleteTodo(todo._id)">Delete</span>
+                    </b-list-group-item>
+                </b-list-group>
+            </b-col>
+        </b-row>
+    </b-container>
 </template>
 
 <script>
@@ -52,6 +68,13 @@
             todoChanged (event) {
                 this.setNewTodo(event.target.value);
             },
+            presentToast (variant, title, message) {
+                this.$bvToast.toast(message, {
+                    title,
+                    variant,
+                    solid: true
+                })
+            },
             insertTodo () {
                 this.apiCall({
                     stateKey: 'insertTodo',
@@ -60,11 +83,11 @@
                     }
                 })
                     .then((response) => {
-                        this.$toast.success(`'${response.data.description}'` + ' is inserted');
+                        this.presentToast('success', 'Success', `'${response.data.description}' is inserted`);
                         this.apiCall({ stateKey: 'todos' });
                     })
                     .catch((error) => {
-                        this.$toast.error(error.response.data.error);
+                        this.presentToast('danger', 'Error', error.response.data.error)
                     });
                 this.setNewTodo('');
             },
@@ -74,21 +97,21 @@
                     queryParameter: id,
                 })
                     .then(response => {
-                        this.$toast.success('Todo removed successfully.')
+                        this.presentToast('success', 'Success', 'Todo removed successfully.')
                         this.apiCall({ stateKey: 'todos' });
                     })
                     .catch(error => {
-                        this.$toast.error('Failed to remove todo.')
+                        this.presentToast('danger', 'Error', 'Failed to remove todo.')
                     })
             }
         },
         created () {
             this.apiCall({ stateKey: 'todos' })
                 .then((response) => {
-                    this.$toast.success('Todos loaded successfully.');
+                    this.presentToast('success', 'Success', 'Todos loaded successfully.');
                 })
                 .catch((error) => {
-                    this.$toast.error('Error loading todos.');
+                    this.presentToast('danger', 'Error', 'Error loading todos.');
                 });
         },
     }

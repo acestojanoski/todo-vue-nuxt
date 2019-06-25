@@ -8,9 +8,10 @@ Simple todo application created with Vue.js and Nuxt.js
 
 *   Vue.js
 *   Nuxt.js
-*   Vuetify (@nuxtjs/vuetify)
-*   vue-toasted (@nuxtjs/toast)
+*   Vuetify (@nuxtjs/vuetify - not used in the latest version)
+*   vue-toasted (@nuxtjs/toast - not used in the latest version)
 *   axios
+*   bootstrap-vue
 
 ## Running
 

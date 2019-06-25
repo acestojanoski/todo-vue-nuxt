@@ -1,7 +1,8 @@
 module.exports = {
     modules: [
         '@nuxtjs/vuetify',
-        '@nuxtjs/toast'
+        '@nuxtjs/toast',
+        'bootstrap-vue/nuxt'
     ],
 
     toast: {

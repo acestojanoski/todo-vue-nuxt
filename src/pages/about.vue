@@ -1,12 +1,16 @@
 <template>
-    <div class="about">
-        <h1>About</h1>
-        <p>This is simple application build with Vue.js</p>
-    </div>
+    <b-container class="about">
+        <b-row>
+            <b-col class="center">
+                <h1>About</h1>
+                <p>This is simple application build with Vue.js</p>
+            </b-col>
+        </b-row>
+    </b-container>
 </template>
 
 <style lang="scss">
-    .about {
+    .center {
         text-align: center;
     }
 </style>
