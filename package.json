@@ -6,7 +6,8 @@
   "scripts": {
     "build": "nuxt build src",
     "start": "nuxt start src",
-    "dev": "nuxt src"
+    "dev": "nuxt src",
+    "generate:static": "nuxt generate src"
   },
   "author": "Aleksandar Stojanoski",
   "license": "ISC",
